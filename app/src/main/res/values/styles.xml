@@ -1,0 +1,15 @@
+<resources>
+    <!-- Custom text appearance for active items -->
+    <style name="BottomNavigationTextBoldBlack" parent="TextAppearance.AppCompat">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item> <!-- Optional: Adjust text size -->
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <!-- Custom text appearance for inactive items -->
+    <style name="BottomNavigationTextNormalGray" parent="TextAppearance.AppCompat">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">14sp</item> <!-- Optional: Adjust text size -->
+        <item name="android:textColor">@android:color/darker_gray</item>
+    </style>
+</resources>

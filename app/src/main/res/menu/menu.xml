@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/dashboard"
+        android:title="Dashboard"
+        android:icon="@drawable/baseline_dashboard_24"/>
+    <item
+        android:id="@+id/recommendation"
+        android:title="Recommendation"
+        android:icon="@drawable/baseline_notifications_24"/>
+    <item
+        android:id="@+id/application"
+        android:title="Application"
+        android:icon="@drawable/baseline_format_list_bulleted_24"/>
+    <item
+        android:id="@+id/account"
+        android:title="Account"
+        android:icon="@drawable/baseline_person_24"/>
+
+</menu>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/parent_container"
+    tools:context=".app.presentation.navigation.ui.NavigationActivity">
+
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/navHostFragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="5dp"
+        app:circularflow_defaultRadius="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/navigationView"
+        app:itemTextAppearanceActive="@style/BottomNavigationTextBoldBlack"
+        app:itemTextAppearanceInactive="@style/BottomNavigationTextNormalGray"
+        app:labelVisibilityMode="labeled"
+        app:itemTextColor="@color/item_color"
+        app:itemIconTint="@color/item_color"
+        app:itemRippleColor="@color/quantum_grey"
+        app:menu="@menu/menu"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

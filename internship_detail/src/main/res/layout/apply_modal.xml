@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    app:cardCornerRadius="10dp">
+
+    <LinearLayout
+        android:id="@+id/modalLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:layout_gravity="center"
+            android:text="Apply for Job"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:text="Write your motivation on applying for this jobs (Maximum 300 words)"
+            android:layout_marginHorizontal="20dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginHorizontal="10dp"
+            android:textSize="14sp"
+            android:background="@drawable/edit_text_box"
+            android:layout_marginTop="40dp"
+            android:hint="Motivation..."
+            android:maxLength="300"
+            android:id="@+id/motivationTxt"
+            android:importantForAccessibility="yes"
+            android:gravity="top|left"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Submit"
+            android:id="@+id/applicationSubmitBtn"
+            android:textColor="@color/white"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/black_button_bg"/>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

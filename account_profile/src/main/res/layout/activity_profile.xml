@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/freescript"
+        android:lineSpacingExtra="-16dp"
+        android:textAlignment="center"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:text="Student\n &amp; Companies"
+        android:textColor="@color/black"
+        android:textSize="87dp" />
+
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="SEND FEEDBACK"
+        android:textStyle="bold"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:textSize="22sp"
+        android:id="@+id/sendFeedbackBtn"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:paddingVertical="10dp"
+        android:background="@drawable/edittext_bg"/>
+
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="SIGN OUT"
+        android:id="@+id/signOutBtm"
+        android:textStyle="bold"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:textSize="22sp"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:paddingVertical="15dp"
+        android:background="@drawable/orange_button_bg"/>
+
+
+</LinearLayout>
