@@ -1,13 +1,18 @@
 package com.se2.student_application.presentation.adapter
 
 import Internship
+import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.compose.ui.graphics.Color
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +24,7 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 
-class ApplicationAdapter(private val items: ArrayList<Application>) :
+class ApplicationAdapter(private val items: ArrayList<Application>, private val onClick: (Application) -> Unit) :
     RecyclerView.Adapter<ApplicationAdapter.Viewholder>() {
     private lateinit var context: Context
 
@@ -34,6 +39,21 @@ class ApplicationAdapter(private val items: ArrayList<Application>) :
         val item = items[position]
         val requiredSkills = splitFormattedString(item.internship?.requiredSkills)
 
+        if (item.questionnaires.size != 0 && !item.status.equals("Qualified")) {
+            holder.binding.seeQuestionnaioreBtn.setOnClickListener {
+                showCustomDialog(context, item, false)
+            }
+        } else {holder.binding.seeQuestionnaioreBtn.visibility = View.GONE}
+
+        if (item.interviews.size != 0 && !item.status.equals("Qualified")) {
+            holder.binding.seeInterviewBtn.setOnClickListener {
+                showCustomDialog(context, item, false)
+            }
+        } else {holder.binding.seeInterviewBtn.visibility = View.GONE}
+
+        if(item.status.equals("Qualified") && isAlreadyInProgressApplication(items)) {
+            holder.binding.answerBtn.visibility = View.VISIBLE
+        }
         holder.binding.titleTxt.text = item.internship?.title
         holder.binding.companyTxt.text = item.internship?.company?.fullName
         holder.binding.createdTxt.text = formatDateTime(item.createdAt)
@@ -54,7 +74,7 @@ class ApplicationAdapter(private val items: ArrayList<Application>) :
         if (item.status.equals("Applied")) {
             holder.binding.statusTxt.text = "In Pending"
             holder.binding.statusTxt.background = ContextCompat.getDrawable(context, com.se2.base.R.drawable.orange_button_bg)
-        } else if (item.status.equals("Cancelled")) {
+        } else if (item.status.equals("Rejected")) {
             holder.binding.statusTxt.text = item.status
             holder.binding.statusTxt.background = ContextCompat.getDrawable(context, com.se2.base.R.drawable.red_button_bg)
         } else if (item.status.equals("In Progress")) {
@@ -63,9 +83,11 @@ class ApplicationAdapter(private val items: ArrayList<Application>) :
         } else {
             holder.binding.statusTxt.text = item.status
         }
-        holder.itemView.setOnClickListener {
-            if (item.status.equals("Qualified")) {
-
+        holder.binding.answerBtn.setOnClickListener {
+            if (item.status.equals("Qualified") && !isAlreadyInProgressApplication(items)) {
+                Toast.makeText(context, "There is already an internship In Progress", Toast.LENGTH_SHORT).show()
+            } else if(item.status.equals("Qualified") && !isAlreadyInProgressApplication(items)) {
+                onClick(item)
             }
         }
     }
@@ -79,8 +101,8 @@ class ApplicationAdapter(private val items: ArrayList<Application>) :
         return input?.split(", ")?.map { it.trim() } ?: emptyList()
     }
 
-    fun isIdInApplications(applications: ArrayList<Application>, targetId: String?): Boolean {
-        return applications.any { it.internship?.id == targetId }
+    fun isAlreadyInProgressApplication(applications: ArrayList<Application>): Boolean {
+        return applications.any { it.status.equals("In Progress")  }
     }
 
     fun formatDateTime(dateTime: String?): String {
@@ -92,6 +114,37 @@ class ApplicationAdapter(private val items: ArrayList<Application>) :
 
         // Format and return
         return parsedDateTime.format(formatter)
+    }
+
+    fun showCustomDialog(context: Context, application: Application, isInterview: Boolean) {
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_custom, null)
+
+        val title = dialogView.findViewById<TextView>(R.id.titleTxt)
+        val description = dialogView.findViewById<TextView>(R.id.descriptionTxt)
+        val linkText = dialogView.findViewById<TextView>(R.id.linkText)
+
+        if(isInterview) {
+            title.text = application.interviews.get(0).title
+            description.text = application.interviews.get(0).description
+            linkText.text = application.interviews.get(0).link
+        } else {
+            title.text = application.questionnaires.get(0).name
+            description.text = application.questionnaires.get(0).description
+            linkText.text = application.questionnaires.get(0).link
+        }
+
+        // Make the link clickable
+        linkText.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(linkText.text.toString()))
+            context.startActivity(intent)
+        }
+
+        val dialog = AlertDialog.Builder(context)
+            .setView(dialogView)
+            .setPositiveButton("OK", null)
+            .create()
+
+        dialog.show()
     }
 
 }

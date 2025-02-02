@@ -3,20 +3,17 @@ package com.se2.student_dashboard.presentation.adapter
 import Internship
 import android.content.Context
 import android.content.Intent
-import android.text.SpannedString
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.se2.base.model.Application
 import com.se2.internship_detail.presentation.ui.InternshipDetailActivity
-import com.se2.student_dashboard.R
 import com.se2.student_dashboard.databinding.ViewholderInternshipBinding
+import com.se2.student_dashboard.presentation.ui.ApplicationDetailActivity
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
@@ -77,14 +74,20 @@ class InternshipAdapter(private val items: List<Internship>, private val userID:
             .into(holder.binding.pic)
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, InternshipDetailActivity::class.java)
-            Log.d("taitest", userID.toString())
-            intent.putExtra("object", item)
-            intent.putExtra("userID", userID)
-            intent.putExtra("userRole", userRole)
-            intent.putExtra("applied", applied)
+            if(userRole == 2) {
+                val intent = Intent(context, InternshipDetailActivity::class.java)
+                intent.putExtra("object", item)
+                intent.putExtra("userID", userID)
+                intent.putExtra("userRole", userRole)
+                intent.putExtra("applied", applied)
+                holder.itemView.context.startActivity(intent)
+            } else if (userRole == 3) {
+                val intent = Intent(context, ApplicationDetailActivity::class.java)
+                intent.putExtra("userID", userID)
+                intent.putExtra("list", ArrayList(findApplicationById(applicationList, item.id?:"")))
+                holder.itemView.context.startActivity(intent)
+            }
 
-            holder.itemView.context.startActivity(intent)
         }
     }
 
@@ -112,7 +115,7 @@ class InternshipAdapter(private val items: List<Internship>, private val userID:
         return parsedDateTime.format(formatter)
     }
 
-    // Function to find an application by its id
+    // Function to find an application by internship id
     fun findApplicationById(applications: List<Application>, id: String): List<Application> {
         return applications.filter { it.internship?.id == id }
     }

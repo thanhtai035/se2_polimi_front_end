@@ -10,22 +10,22 @@ import com.se2.base.model.User
 
 import com.se2.student_dashboard.domain.repository.UserRepository
 
-class GetUserUseCase (
+class GetStudentListUseCase (
     private val repository: UserRepository
 ){
-    operator fun invoke(userID: String
-    ): Flow<Result<User>> = flow {
+    operator fun invoke(uniName: String
+    ): Flow<Result<List<User>>> = flow {
 
         try {
-            emit(Result.Loading<User>())
-            val result = repository.getUser(userID)
-            emit(Result.Success<User>(result))
+            emit(Result.Loading<List<User>>())
+            val result = repository.getStudents(uniName)
+            emit(Result.Success<List<User>>(result))
         } catch(e: HttpException) {
             Log.d("tai", e.message())
-            emit(Result.Error<User>(e.localizedMessage ?: "An unexpected error occured"))
+            emit(Result.Error<List<User>>(e.localizedMessage ?: "An unexpected error occured"))
         } catch(e: IOException) {
             Log.d("tai", e.toString())
-            emit(Result.Error<User>(e.toString()))
+            emit(Result.Error<List<User>>(e.toString()))
         }
     }
 }

@@ -2,7 +2,6 @@ package com.se2.students_and_companies.app.data.service
 
 import com.se2.base.model.dto.ApplicationDto
 import com.se2.base.model.dto.ApplicationResponseDto
-import com.se2.base.model.dto.ListApplicationDto
 import com.se2.base.model.dto.UserResponseDto
 import com.se2.students_and_companies.app.data.dto.RegisterStudentDto
 import com.se2.students_and_companies.app.data.dto.StudentApplicationHolderDto

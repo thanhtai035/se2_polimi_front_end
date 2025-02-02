@@ -3,6 +3,7 @@ package com.example.recommendation.presentation.ui
 import Internship
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,6 +70,7 @@ class RecommendationFragment : Fragment(R.layout.activity_recommendation) {
             when(response) {
                 is Result.Success -> {
                     firstInternshipList = response.data?: emptyList()
+                    Log.d("taitest", firstInternshipList.toString())
                     initFirstAdapter()
                 }
                 is Result.Loading -> {

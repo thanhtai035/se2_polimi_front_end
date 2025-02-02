@@ -4,6 +4,6 @@ import com.se2.base.model.User
 
 
 interface UserRepository {
-    suspend fun getUser(userID: String) : User
+    suspend fun getStudents(uniName: String) : List<User>
 
 }

@@ -20,10 +20,11 @@ data class UserDto(
     val gender: String?,
     val phoneNumber: String?,
     val aboutYou: String?,
-    val address: String,
+    val address: String? = null,
     val university: String?,
     val personalEmail: String?,
     val attributes: String?,
+    @Nullable
     val cv_link: String? = null
 ) {
     // Function to convert UserDto to User entity
@@ -52,8 +53,8 @@ data class UserDto(
 
 // RoleDto class for the DTO representation
 @Serializable
-data class RoleDto(val id: Int, val name: String)
+data class RoleDto(val id: Int, val name: String? = null)
 
 // StatusDto class for the DTO representation
 @Serializable
-data class StatusDto(val id: Int, val name: String)
+data class StatusDto(val id: Int, val name: String? = null)

@@ -26,7 +26,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class InternshipDetailActivity : AppCompatActivity(), ModalFragment.DialogListener {
     lateinit var binding: InternshipDetailActivityBinding
     private val viewModel: InternshipDetailViewModel by viewModel()
-    private var fragmentListener: FragmentListener? = null // Call to Navigation Activity to change screen
     private lateinit var item: Internship
     var studentID: Int? = null
 

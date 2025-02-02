@@ -12,11 +12,11 @@ class SkillAdapter(private val items: List<String>) :
     RecyclerView.Adapter<SkillAdapter.TextViewHolder>() {
 
     inner class TextViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textView: TextView = itemView.findViewById(R.id.skillItemTxt)
+        val textView: TextView = itemView.findViewById(R.id.`mỉgrateItemSkillTxt`)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TextViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.skill_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.migrate_skill_item, parent, false)
         return TextViewHolder(view)
     }
 

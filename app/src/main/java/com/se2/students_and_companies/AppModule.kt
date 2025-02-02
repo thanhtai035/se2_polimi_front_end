@@ -26,7 +26,7 @@ val appModule = module {
 
     single {
         HttpLoggingInterceptor { message ->
-            Log.d("tai","Http: $message")
+            Log.d("taitest","Http: $message")
         }.apply {
             level = HttpLoggingInterceptor.Level.BODY
         }

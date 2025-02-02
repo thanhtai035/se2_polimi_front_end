@@ -33,7 +33,12 @@ class RecommendationAdapter(private val items: List<Internship>, private val use
 
     override fun onBindViewHolder(holder: Viewholder, position: Int) {
         val item = items[position]
-        val requiredSkills = splitFormattedString(item.requiredSkills)
+        var requiredSkills: List<String>
+        try {
+            requiredSkills = splitFormattedString(item.requiredSkills)
+        } catch (e: Exception) {
+            requiredSkills = arrayListOf(item.requiredSkills?:"")
+        }
         var applied = false
 
         holder.binding.titleTxt.text = item.title
@@ -41,15 +46,15 @@ class RecommendationAdapter(private val items: List<Internship>, private val use
 
         holder.binding.locationTxt.text = item.company.address
         holder.binding.salaryTxt.text = item.salary
-        if (requiredSkills.get(0) != null) {
+        if (requiredSkills.size == 1) {
             holder.binding.Skill1.text = requiredSkills.get(0)
         } else holder.binding.Skill1.visibility = View.GONE
 
-        if (requiredSkills.get(1) != null) {
+        if (requiredSkills.size == 2) {
             holder.binding.Skill2.text = requiredSkills.get(1)
         } else holder.binding.Skill2.visibility = View.GONE
 
-        if (requiredSkills.get(2) != null) {
+        if (requiredSkills.size > 2) {
             holder.binding.Skill3.text = requiredSkills.get(2)
         } else holder.binding.Skill3.visibility = View.GONE
 

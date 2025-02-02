@@ -18,6 +18,7 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.firebase.Firebase
 import com.google.firebase.storage.storage
+import com.se2.base.Common.Constant
 import com.se2.base.Common.Constant.skillSuggestions
 import com.se2.base.Common.Constant.universitySuggestions
 import com.se2.students_and_companies.R
@@ -101,7 +102,7 @@ class SignUpActivity : BaseActivity(R.layout.activity_signup) {
 
     private fun initPlaceSuggestion() {
         // Initialize the AutocompleteSupportFragment.
-        Places.initialize(this, "AIzaSyDPxg4N719AUH83XbzhUnQ__orEKjvp3no", Locale.ENGLISH)
+        Places.initialize(this, Constant.GOOGLE_API, Locale.ENGLISH)
         // Add the fragment dynamically
         supportFragmentManager.beginTransaction()
             .replace(R.id.address_autocomplete_fragment, autocompleteFragment, "autocomplete_fragment")

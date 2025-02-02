@@ -45,6 +45,7 @@ class LogInActivity : BaseActivity(R.layout.activity_login) {
                         val user = response.data
                         intent.putExtra("id", user?.id)
                         intent.putExtra("role", user?.role)
+                        intent.putExtra("name", user?.fullName)
                         startActivity(intent)
                         finish()
                     }

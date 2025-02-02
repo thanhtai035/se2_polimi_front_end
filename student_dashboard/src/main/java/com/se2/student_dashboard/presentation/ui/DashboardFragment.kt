@@ -24,6 +24,7 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.PlaceTypes
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+import com.se2.base.Common.Constant
 import com.se2.base.ext.FragmentListener
 import com.se2.base.model.Application
 import com.se2.student_dashboard.R
@@ -128,7 +129,7 @@ class DashboardFragment : Fragment(R.layout.fragment_student_dashboard) {
             childFragmentManager.findFragmentById(R.id.autocomplete_fragment)
                     as AutocompleteSupportFragment
 
-        Places.initialize(requireContext().applicationContext, "AIzaSyDPxg4N719AUH83XbzhUnQ__orEKjvp3no", Locale.ENGLISH);
+        Places.initialize(requireContext().applicationContext, Constant.GOOGLE_API, Locale.ENGLISH);
         val autoCompleteview = autocompleteFragment.view
         if(userRole != 2) {
             autoCompleteview?.visibility = View.GONE

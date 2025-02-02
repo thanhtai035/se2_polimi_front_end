@@ -36,6 +36,8 @@
         <activity
             android:name="com.se2.student_dashboard.presentation.ui.AddInternshipActivity"
             android:exported="true"/>
+        <activity android:name="com.se2.student_dashboard.presentation.ui.ApplicationDetailActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>

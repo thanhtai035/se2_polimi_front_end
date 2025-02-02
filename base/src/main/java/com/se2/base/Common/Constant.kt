@@ -2,6 +2,8 @@ package com.se2.base.Common
 
 object Constant {
     const val BASE_URL = "http://10.0.2.2:3000"
+
+    const val GOOGLE_API = "AIzaSyDcYkaQbK2JeifoS72COwOjtTmR3fGitBg"
 //    const val BASE_URL = "https://4a95-2401-d800-9e1-a29-46f-53de-9187-9626.ngrok-free.app"
 
     val skillSuggestions = listOf(

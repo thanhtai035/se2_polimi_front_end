@@ -32,7 +32,9 @@ class ApplicationRepositoryImpl (
                 id = item.id,
                 internship = item.internship?.toEntity(),
                 motivationText = item.motivationText,
-                student = item.student?.toEntity()
+                student = item.student?.toEntity(),
+                interviews = item.interviews.map { item -> item.toModel() },
+                questionnaires = item.questionnaires.map { item -> item.toModel() }
             )
         }
     }

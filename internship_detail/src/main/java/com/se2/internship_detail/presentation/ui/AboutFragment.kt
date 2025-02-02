@@ -49,7 +49,6 @@ class AboutFragment : Fragment() {
         optionalSkillList = splitFormattedString(optionalSkillString)
         val optionalSkillAdapter = SkillAdapter(optionalSkillList)
         binding.optionalSkillsList.layoutManager =  LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-
         binding.optionalSkillsList.adapter = optionalSkillAdapter
     }
 

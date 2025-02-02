@@ -21,6 +21,7 @@ import com.se2.students_and_companies.app.data.dto.UserID
 import com.se2.students_and_companies.app.presentation.navigation.viewmodel.NavigationViewModel
 import com.se2.base.presentation.activity.BaseActivity
 import com.se2.student_application.presentation.ui.ApplicationFragment
+import com.se2.student_dashboard.presentation.ui.UniversityDashboardFragment
 import com.se2.students_and_companies.app.presentation.authentication.LogInActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.time.Instant
@@ -31,6 +32,7 @@ class NavigationActivity : BaseActivity(R.layout.activity_navigation), FragmentL
     private lateinit var binding: ActivityNavigationBinding
     private var userID: Int = 0
     private var userRole: Int = 0
+    private var userName: String = ""
     private val viewModel: NavigationViewModel by viewModel()
     private lateinit var listApplication: ArrayList<Application>
     private var lastScreen: FragmentEnum = FragmentEnum.StudentDashboard
@@ -42,9 +44,10 @@ class NavigationActivity : BaseActivity(R.layout.activity_navigation), FragmentL
         // Initialize Binding
         userID = intent.getIntExtra("id", 0)
         userRole = intent.getIntExtra("role", 0)
+        userName = intent.getStringExtra("name")?:"Politecnico Di Milano"
 
         if (count == 0) {
-            if (userRole == 2) {
+            if (userRole == 2 || userRole == 4) {
                 viewModel.getStudentApplication(StudentApplicationHolderDto(UserID(userID)))
             } else if (userRole == 3) {
                 viewModel.getCompanyApplication(userID.toString())
@@ -54,7 +57,7 @@ class NavigationActivity : BaseActivity(R.layout.activity_navigation), FragmentL
         binding = ActivityNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (userRole == 3) {
+        if (userRole != 2) {
             binding.navigationView.menu.findItem(R.id.recommendation).isVisible = false
             binding.navigationView.menu.findItem(R.id.application).isVisible = false
         }
@@ -87,18 +90,36 @@ class NavigationActivity : BaseActivity(R.layout.activity_navigation), FragmentL
     override fun onNavigate(fragment: FragmentEnum) {
         when (fragment) {
             FragmentEnum.StudentDashboard -> {
-                lastScreen = FragmentEnum.StudentDashboard
-                val dashboardFragment = DashboardFragment()
-                val bundle = Bundle()
-                bundle.putInt("userID", userID)
-                bundle.putInt("userRole", userRole)
-                if (userRole == 2) {
-                    bundle.putSerializable("application",ArrayList(filterAndSortApplicationsByStudentId(listApplication, userID)))
-                } else if (userRole == 3) {
-                    bundle.putSerializable("application",ArrayList(filterAndSortApplicationsByCompanyId(listApplication, userID)))
+                if (userRole != 4) {
+                    lastScreen = FragmentEnum.StudentDashboard
+                    val dashboardFragment = DashboardFragment()
+                    var bundle = Bundle()
+                    bundle.putInt("userID", userID)
+                    bundle.putInt("userRole", userRole)
+                    if (userRole == 2) {
+                        bundle.putSerializable(
+                            "application",
+                            ArrayList(filterAndSortApplicationsByStudentId(listApplication, userID))
+                        )
+                    } else if (userRole == 3) {
+                        bundle.putSerializable(
+                            "application",
+                            ArrayList(filterAndSortApplicationsByCompanyId(listApplication, userID))
+                        )
+                    }
+                    dashboardFragment.arguments = bundle
+                    replaceFragment(dashboardFragment)
+                } else {
+                    val bundle = Bundle()
+                    bundle.putString("uniName", userName)
+                    bundle.putSerializable(
+                        "application",
+                        ArrayList(filterAndSortApplicationsByStudentId(listApplication, userID))
+                    )
+                    val uniFragment =  UniversityDashboardFragment()
+                    uniFragment.arguments = bundle
+                    replaceFragment(uniFragment)
                 }
-                dashboardFragment.arguments = bundle
-                replaceFragment(dashboardFragment)
             }
             FragmentEnum.Profile -> {
                 lastScreen = FragmentEnum.Profile
